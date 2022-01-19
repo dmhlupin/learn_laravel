@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,13 +17,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return "Приветствуем Вас на сайте самых честных в мире новостей!";
+    return view('welcome');
 });
 
-Route::get('/about', function () {
-   return "Страница с информацией о проекте";
+// admin
+// группировка роутов и их групповое именование
+Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
+    Route::resource('/categories', AdminCategoryController::class);
+    Route::resource('/news', AdminNewsController::class);
 });
 
-Route::get('/news', function () {
-    return "Здесь собираются новости";
-});
+//news
+
+Route::get('/news', [NewsController::class, 'index'])
+    ->name('news.index'); //Даем имя для удаления жесткой связи в ссылках
+
+Route::get('/news/{id}', [NewsController::class, 'show'])
+    ->where('id', '\d+') // проверяем параметр на целое число
+    ->name('news.show');;
