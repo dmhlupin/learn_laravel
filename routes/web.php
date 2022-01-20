@@ -1,9 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\NewsController;
-use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
-use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +16,7 @@ use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('start');
 });
 
 // admin
@@ -34,4 +33,9 @@ Route::get('/news', [NewsController::class, 'index'])
 
 Route::get('/news/{id}', [NewsController::class, 'show'])
     ->where('id', '\d+') // проверяем параметр на целое число
-    ->name('news.show');;
+    ->name('news.show');
+
+Route::get('/category', [CategoryController::class, 'index'])
+    ->name('category.index');
+Route::get('/category/{title}', [CategoryController::class, 'show'])
+    ->name('category.show');

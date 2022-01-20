@@ -39,4 +39,27 @@ class Controller extends BaseController
 
         return $data;
     }
-}
+
+    public function getCategories(string $catTitle = null): array
+    {
+        $faker = Factory::create();
+        $data = [];
+        
+        if($catTitle) {
+            return [
+                'title' => $catTitle,
+                'news' => $this->getNews()
+            ];
+        }
+        
+        for($i = 1; $i <= 5; $i++) {
+            $data[$i] = [
+                'id' => $i,
+                'title' => $faker->sentence(1),
+                'news' => $this->getNews()
+            ];
+        }
+        return $data;
+        
+    }
+};
