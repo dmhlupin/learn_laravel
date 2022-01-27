@@ -10,8 +10,9 @@
 
                     <ul class="list-unstyled">
 
-                        <li><a href="{{ route('admin.categories.index') }}" class="text-white">К категориям</a></li>
-                        <li><a href="{{ route('admin.news.index') }}" class="text-white">К новостям</a></li>
+                        <li><a href="{{ route('category.index') }}" class="text-white">Категории</a></li>
+                        <li><a href="{{ route('feedback.index') }}" class="text-white">Обратная связь</a></li>
+                        <li><a href="{{ route('orders.index') }}" class="text-white">Заявки</a></li>
                     </ul>
                 </div>
             </div>

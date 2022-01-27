@@ -32,19 +32,19 @@
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
     <header class="mb-auto">
         <div>
-            <h3 class="float-md-start mb-0">Laravel News</h3>
+            <a href="/"><h3 class="float-md-start mb-0">Laravel News</h3></a>
+
             <nav class="nav nav-masthead justify-content-center float-md-end">
-                <a class="nav-link active" aria-current="page" href="#">Домой</a>
+
                 @yield('goToAdmin')
+                @yield('goToRegister')
 
             </nav>
         </div>
     </header>
 
     <main class="px-3">
-        <h1>Агрегатор новостей</h1>
-        <p class="lead">Добро пожаловать на самый быстрый агрегатор новостей</p>
-        @yield('start')
+        @yield('content')
     </main>
 
     <footer class="mt-auto text-white-50">

@@ -5,6 +5,9 @@ use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Registration as RegisterController;
+use App\Http\Controllers\Feedback as FeedbackController;
+use App\Http\Controllers\Orders as OrdersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +23,11 @@ use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 Route::get('/', function () {
     return view('start');
 });
+Route::resource('/register', RegisterController::class);
+
+Route::resource('/feedback', FeedbackController::class);
+
+Route::resource('/orders', OrdersController::class);
 
 // admin
 // группировка роутов и их групповое именование
