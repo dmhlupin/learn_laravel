@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\News;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = $this->getCategories();
+        $categories = new Category();
+        $categories = $categories->getCategories();
 
         //хелпер view позволяет отдавать данные в представления в каталоге resources/view
         return view('category.index', [
@@ -16,12 +19,17 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function show(string $title)
+    public function show(int $id)
     {
-        $category = $this->getCategories($title);
+        $news = new News();
+        $categories = new Category();
+        $news = $news->getNewsByCategoryId($id);
+        $catTitle = $categories->getCategoryById($id);
+        $catTitle = $catTitle->title;
+
         return view('news.index', [
-            'catTitle' => $title,
-            'newsList' => $category['news']
+            'catTitle' => $catTitle,
+            'newsList' => $news
         ]);
     }
 }

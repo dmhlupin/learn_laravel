@@ -48,5 +48,5 @@ Route::get('/news/{id}', [NewsController::class, 'show'])
 
 Route::get('/category', [CategoryController::class, 'index'])
     ->name('category.index');
-Route::get('/category/{title}', [CategoryController::class, 'show'])
+Route::get('/category/{id}', [CategoryController::class, 'show'])
     ->name('category.show');
