@@ -10,25 +10,24 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = new Category();
-        $categories = $categories->getCategories();
+
+        $categories = Category::all();
 
         //хелпер view позволяет отдавать данные в представления в каталоге resources/view
         return view('category.index', [
-            'catList' => $categories
+            'categories' => $categories
         ]);
     }
 
-    public function show(int $id)
+    public function show(Category $category)
     {
+
         $news = new News();
-        $categories = new Category();
-        $news = $news->getNewsByCategoryId($id);
-        $catTitle = $categories->getCategoryById($id);
-        $catTitle = $catTitle->title;
+
+        $news = $news->getNewsByCategoryId($category->id);
 
         return view('news.index', [
-            'catTitle' => $catTitle,
+            'catTitle' => $category->title,
             'newsList' => $news
         ]);
     }

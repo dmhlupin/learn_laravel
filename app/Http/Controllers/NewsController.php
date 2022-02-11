@@ -9,8 +9,10 @@ class NewsController extends Controller
 {
     public function index()
     {
-        $news = new News();
-        $news = $news->getNews();
+
+        $news = News::query() // query также можно опустить так как модель итак возвращает объект
+            ->select(News::$availableFields)
+            ->get();
 
         //хелпер view позволяет отдавать данные в представления в каталоге resources/view
         return view('news.index', [
@@ -19,12 +21,11 @@ class NewsController extends Controller
         ]);
     }
 
-    public function show(int $id)
+    public function show(News $news)
     {
-        $news = new News();
-        $news = $news->getNewsById($id);
+
         return view('news.show', [
-            'news' => $news[0]
+            'news' => $news
         ]);
     }
 }

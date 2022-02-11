@@ -8,6 +8,9 @@ use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Registration as RegisterController;
 use App\Http\Controllers\Feedback as FeedbackController;
 use App\Http\Controllers\Orders as OrdersController;
+use App\Models\Category;
+use App\Models\News;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -42,11 +45,26 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
 Route::get('/news', [NewsController::class, 'index'])
     ->name('news.index'); //Даем имя для удаления жесткой связи в ссылках
 
-Route::get('/news/{id}', [NewsController::class, 'show'])
-    ->where('id', '\d+') // проверяем параметр на целое число
+
+Route::get('/news/{news}', [NewsController::class, 'show'])
+    ->where('news', '\d+') // проверяем параметр на целое число
     ->name('news.show');
 
 Route::get('/category', [CategoryController::class, 'index'])
     ->name('category.index');
-Route::get('/category/{id}', [CategoryController::class, 'show'])
+Route::get('/category/{category}', [CategoryController::class, 'show'])
     ->name('category.show');
+
+Route::get('/collection', function(){
+    $arr = [1,5,7,4];
+    $arr2 = [
+        'names' => [
+            'Ann', 'Vasya', 'Dima', 'Lena'
+        ],
+        'ages' => [14,15,18,23]
+
+    ];
+    $collection = collect($arr);
+    $collection2 = collect($arr2);
+    dd($collection);
+});

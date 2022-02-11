@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('header')
-    <h1 class="h2">Добавить новость</h1>
+    <h1 class="h2">Редактировать новость</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
 
@@ -13,35 +13,38 @@
 @section('content')
     @include('inc.message')
 
-    <form method="POST" action="{{ route('admin.news.store') }}">
+    <form method="POST" action="{{ route('admin.news.update', ['news' => $news]) }}">
         @csrf
+        @method('put')
         <div class=""form-group>
             <label for="title">Выбрать категории новостей</label>
             <select class="form-control" name="categories[]" id="categories" multiple>
                 @foreach($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->title }}</option>
+                    <option value="{{ $category->id }}"
+                    @if(in_array($category->id, $selectCategories)) selected @endif
+                    >{{ $category->title }}</option>
                 @endforeach
             </select>
         </div>
         <div class=""form-group>
             <label for="title">Заголовок</label>
-            <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}">
+            <input type="text" class="form-control" id="title" name="title" value="{{ $news->title }}">
         </div>
         <div class=""form-group>
             <label for="author">Автор</label>
-            <input type="text" class="form-control" id="author" name="author" value="{{ old('author') }}">
+            <input type="text" class="form-control" id="author" name="author" value="{{ $news->author }}">
         </div>
         <div class=""form-group>
             <label for="status">Статус</label>
             <select name="status" id="status" class="form-control">
-                <option @if(old('status') === 'DRAFT') selected @endif>DRAFT</option>
-                <option @if(old('status') === 'ACTIVE') selected @endif>ACTIVE</option>
-                <option @if(old('status') === 'BLOCKED') selected @endif>BLOCKED</option>
+                <option @if($news->status === 'DRAFT') selected @endif>DRAFT</option>
+                <option @if($news->status === 'ACTIVE') selected @endif>ACTIVE</option>
+                <option @if($news->status === 'BLOCKED') selected @endif>BLOCKED</option>
             </select>
         </div>
         <div class=""form-group>
             <label for="description">Текст статьи</label>
-            <textarea class="form-control" id="description" name="description"> {!! old('description') !!} </textarea>
+            <textarea class="form-control" id="description" name="description"> {!! $news->description !!} </textarea>
         </div>
         <br>
         <button type="submit" class="btn btn-success" style="float:right">Сохранить</button>

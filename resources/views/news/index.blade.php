@@ -5,6 +5,7 @@
 @section('header')
     <div class="row py-lg-5">
         <div class="col-lg-6 col-md-8 mx-auto">
+
             <h1 class="fw-light">Категория: {{ $catTitle }} </h1>
         </div>
     </div>
@@ -12,6 +13,7 @@
 @section('content')
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
             @forelse($newsList as $news)
 
                 <div class="col">
@@ -19,7 +21,7 @@
                         <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
                         <div class="card-body">
                             <p>
-                                <a href="{{ route('news.show', ['id' => $news->id]) }}">
+                                <a href="{{ route('news.show', ['news' => $news]) }}">
                                     <strong>
                                        {{ $news->title }}
                                     </strong>
@@ -29,7 +31,7 @@
                             <p class="card-text">{!! $news->description !!}</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a href="{{ route('news.show', ['id' => $news->id]) }}" type="button" class="btn btn-sm btn-outline-secondary">Перейти</a>
+                                    <a href="{{ route('news.show', ['news' => $news]) }}" type="button" class="btn btn-sm btn-outline-secondary">Перейти</a>
 
                                 </div>
                                 <small class="text-muted">Дата добавления: <br>{{ $news->created_at }}</small>

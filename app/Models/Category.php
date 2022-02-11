@@ -11,16 +11,9 @@ class Category extends Model
 
     protected $table = "categories";
 
+    protected $fillable = [
+        'title'
+    ];
 
-    public function getCategories()
-    {
-        return \DB::table($this->table)
-            ->get()
-            ->toArray();
-    }
 
-    public function getCategoryById($id)
-    {
-        return \DB::table($this->table)->find($id);
-    }
 }

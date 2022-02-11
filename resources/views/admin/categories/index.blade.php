@@ -12,8 +12,28 @@
 
 @section('content')
     <div class="table-responsive">
-        Список категорий
+        @include('inc.message')
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+
+                <th>Editing</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            @foreach($categories as $category)
+                <tr>
+                    <td>{{ $category->id }}</td>
+                    <td>{{ $category->title }}</td>
+
+                    <td><a href=" {{ route('admin.categories.edit', ['category' => $category]) }}">Edit</a>&nbsp; <a href="">Delete</a></td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+        {{ $categories->links() }}
     </div>
 @endsection
-
-
