@@ -152,6 +152,13 @@ class NewsController extends Controller
      */
     public function destroy(News $news)
     {
-        //
+
+        $deleted = $news->delete();
+        if($deleted) {
+            return redirect()->route('admin.categories.index')
+                ->with('success', 'Запись успешно удалена');
+        }
+        return back()->with('error', 'Не удалось удалить запись')
+            ->withInput();
     }
 }

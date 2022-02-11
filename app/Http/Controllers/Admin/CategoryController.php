@@ -112,8 +112,18 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+
+    public function destroy(Category $category)
     {
-        //
+
+        $deleted = $category->delete();
+
+
+        if($deleted) {
+            return redirect()->route('admin.categories.index')
+                ->with('success', 'Запись успешно удалена');
+        }
+        return back()->with('error', 'Не удалось удалить запись')
+            ->withInput();
     }
 }

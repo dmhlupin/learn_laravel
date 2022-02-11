@@ -23,15 +23,22 @@
             </tr>
             </thead>
             <tbody>
-
-            @foreach($categories as $category)
+                @foreach($categories as $category)
                 <tr>
                     <td>{{ $category->id }}</td>
                     <td>{{ $category->title }}</td>
-
-                    <td><a href=" {{ route('admin.categories.edit', ['category' => $category]) }}">Edit</a>&nbsp; <a href="">Delete</a></td>
+                    <td>
+                        <div class="btn-group" data-toggle="buttons">
+                            <a class="btn btn-primary btn-sm" href="{{ route('admin.categories.edit', ['category' => $category]) }}">Редактировать</a>&nbsp;
+                            <form method="POST" action="{{ route('admin.categories.destroy', ['category' => $category]) }}">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-primary btn-sm" style="float:right">Удалить</button>
+                            </form>
+                        </div>
+                    </td>
                 </tr>
-            @endforeach
+                @endforeach
             </tbody>
         </table>
         {{ $categories->links() }}

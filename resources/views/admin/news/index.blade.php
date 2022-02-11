@@ -38,7 +38,16 @@
                         <td>{{ $news->author }}</td>
                         <td>{{ $news->status }}</td>
                         <td>{{ $news->created_at }}</td>
-                        <td><a href=" {{ route('admin.news.edit', ['news' => $news]) }}">Edit</a>&nbsp; <a href="">Delete</a></td>
+                        <td>
+                            <div class="btn-group" data-toggle="buttons">
+                                <a class="btn btn-primary btn-sm" href="{{ route('admin.news.edit', ['news' => $news]) }}">Редактировать</a>&nbsp;
+                                <form method="POST" action="{{ route('admin.news.destroy', ['news' => $news]) }}">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="btn btn-primary btn-sm" style="float:right">Удалить</button>
+                                </form>
+                            </div>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
