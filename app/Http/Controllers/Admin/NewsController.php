@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\News\UpdateRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\News;
@@ -48,7 +49,13 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => ['required', 'string', 'min:3']
+            'title' => ['required', 'string', 'min:3'],
+            'author' => ['required', 'string', 'min:3', 'max:50'],
+            'status' => ['required', 'string', 'min:4', 'max:8'],
+            'isImage' => ['nullable', 'boolean'],
+            'image' => ['nullable', 'file', 'image', 'mimes:jpg, png'],
+            'description' => ['nullable', 'string']
+
         ]);
 
         $data = $request->only(['title', 'author', 'status', 'description']) + [
@@ -108,16 +115,12 @@ class NewsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  UpdateRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, News $news)
+    public function update(UpdateRequest $request, News $news)
     {
-
-        $request->validate([
-            'title' => ['required', 'string', 'min:3']
-        ]);
 
         $data = $request->only(['title', 'author', 'status', 'description']) + [
                 'slug' =>\Str::slug($request->input('title'))
